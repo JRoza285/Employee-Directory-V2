@@ -4,6 +4,23 @@ export default app;
 
 import employees from "#db/employees";
 
+//body parsing middleware
+app.use(express.json());
+
+//logging middleware
+app.use((req, res, next) => {
+  console.log(req.method, req.originalUrl);
+  next();
+})
+
+//error handeling middleware
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).send("Server failed.")
+})
+
+
+
 app.get("/", (req, res) => {
   res.send("Hello employees!");
 });
